@@ -6,22 +6,22 @@ let listaDinamica = [];
 const palavras = [
 
     palavra001 = {
-        nome: "IRLANDA",
-        categoria: "LUGARES"
+        nome: "EUROPA",
+        categoria: "SATELITE"
     },
 
     palavra002 = {
-        nome: "ITALIA",
-        categoria: "LUGARES"
+        nome: "GANIMEDES",
+        categoria: "SATELITE"
     },
 
     palavra003 = {
-        nome: "JAPAO",
+        nome: "NAMIBIA",
         categoria: "LUGARES"
     },
 
     palavra004 = {
-        nome: "CHILE",
+        nome: "MIANMAR",
         categoria: "LUGARES"
     },
 
@@ -32,17 +32,17 @@ const palavras = [
 
     palavra006 = {
         nome: "HELLOWEN",
-        categoria: "ROCK"
+        categoria: "MUSICA"
     },
 
     palavra007 = {
         nome: "MANOWAR",
-        categoria: "ROCK"
+        categoria: "MUSICA"
     },
 
     palavra008 = {
         nome: "KORZUS",
-        categoria: "ROCK"
+        categoria: "MUSICA"
     },
 
     palavra009 = {
@@ -66,13 +66,13 @@ const palavras = [
     },
 
     palavra013 = {
-        nome: "AFEGANISTÃO",
+        nome: "AFEGANISTAO",
         categoria: "LUGARES"
     },
 
     palavra014 = {
-        nome: "PORTUGAL",
-        categoria: "LUGARES"
+        nome: "MOTORHEAD",
+        categoria: "MUSICA"
     },
 
     palavra015 = {
@@ -86,23 +86,28 @@ const palavras = [
     },
 
     palavra017 = {
-        nome: "HOLANDA",
-        categoria: "LUGARES"
+        nome: "OS INFILTRADOS",
+        categoria: "TV E CINEMA"
     },
 
     palavra018 = {
-        nome: "SUECIA",
-        categoria: "LUGARES"
+        nome: "SPACE TODAY",
+        categoria: "TV E CINEMA"
     },
 
     palavra019 = {
-        nome: "ALEMANHA",
-        categoria: "LUGARES"
+        nome: "O FISICO TURISTA",
+        categoria: "TV E CINEMA"
     },
 
     palavra020 = {
-        nome: "INDONESIA",
-        categoria: "LUGARES"
+        nome: "OS BONS COMPANHEIROS",
+        categoria: "TV E CINEMA"
+    },
+
+    palavra021 = {
+        nome: "A MALDIÇAO DA RESIDENCIA HILL",
+        categoria: "TV E CINEMA"
     },
 ];
 
@@ -110,7 +115,7 @@ const palavras = [
 criarPalavraSecreta()
 function criarPalavraSecreta() {
     const indexPalavra = parseInt(Math.random() * palavras.length)
-    
+
     palavraSecretaSort = palavras[indexPalavra].nome;
     palavraSecretaCategoria = palavras[indexPalavra].categoria;
 
@@ -125,20 +130,38 @@ function mostrarPalavra() {
     const palavraTela = document.getElementById("palavra-secreta");
     palavraTela.innerHTML = '';
 
-    for( i = 0; i < palavraSecretaSort.length; i++) {
-        if(listaDinamica[i] == undefined) {
-            listaDinamica[i] = "&nbsp;"
-            palavraTela.innerHTML = palavraTela.innerHTML + "<div class='letras'>" + listaDinamica[i] + "</div>"
+    for (i = 0; i < palavraSecretaSort.length; i++) {
+
+        if (listaDinamica[i] == undefined) {
+
+            if (palavraSecretaSort[i] == " ") {
+
+                listaDinamica[i] = " ";
+                palavraTela.innerHTML = palavraTela.innerHTML + "<div class='letrasEspaco'>" + listaDinamica[i] + "</div>"
+            } else {
+                listaDinamica[i] = "&nbsp;"
+                palavraTela.innerHTML = palavraTela.innerHTML + "<div class='letras'>" + listaDinamica[i] + "</div>"
+            }
+
         } else {
-            palavraTela.innerHTML = palavraTela.innerHTML + "<div class='letras'>" + listaDinamica[i] + "</div>"
+            if (palavraSecretaSort[i] == " ") {
+                listaDinamica[i] = " ";
+                palavraTela.innerHTML = palavraTela.innerHTML + "<div class='letrasEspaco'>" + listaDinamica[i] + "</div>"
+
+            } else {
+
+                palavraTela.innerHTML = palavraTela.innerHTML + "<div class='letras'>" + listaDinamica[i] + "</div>"
+
+            }
+
         }
     }
 }
 
 
-function verifcaLetraEscolhida (letra) {
+function verifcaLetraEscolhida(letra) {
     document.getElementById("tecla-" + letra).disabled = true;
-    if(tentativas > 0 ){
+    if (tentativas > 0) {
         mudarStyleLetra("tecla-" + letra);
         comparaListas(letra);
         mostrarPalavra();
@@ -153,75 +176,75 @@ function mudarStyleLetra(tecla) {
 
 
 function comparaListas(letra) {
-    
+
     const pos = palavraSecretaSort.indexOf(letra);
-    if(pos < 0 ) {
+    if (pos < 0) {
         tentativas--;
         carregaImg();
 
-        if(tentativas == 0) {
+        if (tentativas == 0) {
             abreModal("Ops!", "Não foi dessa vez... A palavra correta era <br>" + palavraSecretaSort);
         }
 
-    }else {
+    } else {
 
-        for(i = 0; i < palavraSecretaSort.length; i++ ) {
+        for (i = 0; i < palavraSecretaSort.length; i++) {
 
-            if(palavraSecretaSort[i] == letra) {
+            if (palavraSecretaSort[i] == letra) {
                 listaDinamica[i] = letra;
-            } 
+            }
         }
     }
 
     let vitoria = true;
-    for(i = 0; i < palavraSecretaSort.length; i++ ) {
+    for (i = 0; i < palavraSecretaSort.length; i++) {
 
-        if(palavraSecretaSort[i] != listaDinamica[i]) {
+        if (palavraSecretaSort[i] != listaDinamica[i]) {
             vitoria = false;
-        } 
+        }
     }
 
-    if(vitoria == true){
+    if (vitoria == true) {
         abreModal("PARABÉNS!", " Você Venceu (❁´◡`❁)");
     }
 
-    
+
 };
 
 
 function carregaImg() {
-    switch(tentativas) {
+    switch (tentativas) {
         case 5:
             document.getElementById("imagem").style.background = "url('./img/forca01.png')";
-        break;
+            break;
 
         case 4:
             document.getElementById("imagem").style.background = "url('./img/forca02.png')";
-        break;
+            break;
 
         case 3:
             document.getElementById("imagem").style.background = "url('./img/forca03.png')";
-        break;
+            break;
 
         case 2:
             document.getElementById("imagem").style.background = "url('./img/forca04.png')";
-        break;
+            break;
 
         case 1:
             document.getElementById("imagem").style.background = "url('./img/forca05.png')";
-        break;
+            break;
 
         case 0:
             document.getElementById("imagem").style.background = "url('./img/forca06.png')";
-        break;
+            break;
 
         default:
             document.getElementById("imagem").style.background = "url('./img/forca.png')";
-        break;
+            break;
     }
 }
 
-function abreModal (titulo, msg) {
+function abreModal(titulo, msg) {
 
     let modalTitulo = document.getElementById('exampleModalLabel');
     modalTitulo.innerText = titulo;

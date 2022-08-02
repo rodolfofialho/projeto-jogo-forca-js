@@ -49,6 +49,15 @@ body {
     margin-right: 4px;
 }
 
+.letrasEspaco {
+    width: 16px;
+    text-align: center;
+    padding: 2px;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+
 #teclado {
     margin-top: 30px;
 }
